@@ -3,5 +3,7 @@ version: '3.8'
 services:
     rsshub:
         image: imdreamer/rsshub:v0.1
+        container_name: rsshub
         ports:
             - "12000:1200"
+        restart: always
