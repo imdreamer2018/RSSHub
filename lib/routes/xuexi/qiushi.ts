@@ -32,8 +32,6 @@ export const route: Route = {
 };
 
 async function handler(ctx) {
-    console.log('xuexi/xjpjh');
-
     let title = '习近平求是专栏';
     const link = `http://www.qstheory.cn/zt2019/qskfzsjwz/index.htm`;
     const response = await ofetch(link);
@@ -65,12 +63,11 @@ async function handler(ctx) {
 
             const item_response = await ofetch(itemUrl);
             const $ = load(item_response);
-            let description = $('div.container.content.inner').html()?.trim();
-
+            let description = $('div.col-sm-12').html()?.trim();
             if (description) {
                 const urlParts = itemUrl.split('/');
                 const newPath = urlParts.slice(0, -1).join('/') + '/';
-                description = description.replace(/src="(http:\/\/www\.qstheory\.cn\/)(\d+_\d+\.jpg)"/g, `src="${newPath}$2"`);
+                description = description.replace(/src="(\d+_\d+\.jpg)"/g, `src="${newPath}$2"`);
             }
 
             const single = {
@@ -78,11 +75,9 @@ async function handler(ctx) {
                 link: itemUrl,
                 description,
             };
-            cache.set(itemUrl, JSON.stringify(single));
             return single;
         })
     );
-
     return {
         title,
         link,
