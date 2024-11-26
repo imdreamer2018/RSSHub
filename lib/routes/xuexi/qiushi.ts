@@ -65,7 +65,13 @@ async function handler(ctx) {
 
             const item_response = await ofetch(itemUrl);
             const $ = load(item_response);
-            const description = $('div.container.content.inner').html()?.trim();
+            let description = $('div.container.content.inner').html()?.trim();
+
+            if (description) {
+                const urlParts = itemUrl.split('/');
+                const newPath = urlParts.slice(0, -1).join('/') + '/';
+                description = description.replace(/src="(http:\/\/www\.qstheory\.cn\/)(\d+_\d+\.jpg)"/g, `src="${newPath}$2"`);
+            }
 
             const single = {
                 title,
