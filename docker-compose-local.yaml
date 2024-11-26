@@ -2,9 +2,6 @@ version: '3.8'
 
 services:
     rsshub:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        image: imdreamer/rsshub
+        image: imdreamer/rsshub:v0.1
         ports:
-            - "12000:12000"
+            - "12000:1200"
