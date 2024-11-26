@@ -64,11 +64,6 @@ async function handler(ctx) {
             const item_response = await ofetch(itemUrl);
             const $ = load(item_response);
             let description = $('div.col-sm-12').html()?.trim();
-            if (description) {
-                const urlParts = itemUrl.split('/');
-                const newPath = urlParts.slice(0, -1).join('/') + '/';
-                description = description.replace(/src="(\d+_\d+\.jpg)"/g, `src="${newPath}$2"`);
-            }
 
             const single = {
                 title,
