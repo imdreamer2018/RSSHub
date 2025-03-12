@@ -31,7 +31,7 @@ export const route: Route = {
     url: 'www.qstheory.cn/',
 };
 
-async function handler(ctx) {
+async function handler() {
     let title = '习近平求是专栏';
     const link = `http://www.qstheory.cn/zt2019/qskfzsjwz/index.htm`;
     const response = await ofetch(link);
