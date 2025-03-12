@@ -10,7 +10,7 @@ export const route: Route = {
     path: '/qiushi',
     categories: ['traditional-media'],
     example: '/xuexi/xjpjh',
-    parameters: { },
+    parameters: {},
     features: {
         requireConfig: false,
         requirePuppeteer: false,
@@ -32,7 +32,7 @@ export const route: Route = {
 };
 
 async function handler() {
-    let title = '习近平求是专栏';
+    const title = '习近平求是专栏';
     const link = `http://www.qstheory.cn/zt2019/qskfzsjwz/index.htm`;
     const response = await ofetch(link);
 
@@ -41,12 +41,14 @@ async function handler() {
     const list = $('div.container')
         .map(function () {
             const containerItems = $(this).find('h2 a');
-            return containerItems.map(function () {
-                return {
-                    title: $(this).text(),
-                    link: $(this).attr('href'),
-                };
-            }).get();
+            return containerItems
+                .map(function () {
+                    return {
+                        title: $(this).text(),
+                        link: $(this).attr('href'),
+                    };
+                })
+                .get();
         })
         .get()
         .flat()
@@ -63,7 +65,7 @@ async function handler() {
 
             const item_response = await ofetch(itemUrl);
             const $ = load(item_response);
-            let description = $('div.col-sm-12').html()?.trim();
+            const description = $('div.col-sm-12').html()?.trim();
 
             const single = {
                 title,
